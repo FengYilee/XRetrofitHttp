@@ -8,7 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 /**
  * Created by FengYi.Lee<fengyi.li@hotmail.com> on 2020/11/24.
  */
-class NetProvider {
+public class NetProvider {
 
     public NetProvider() {
     }

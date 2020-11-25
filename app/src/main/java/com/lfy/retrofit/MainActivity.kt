@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.lfy.libretrofit.RetrofitHelper
 import com.lfy.libretrofit.observer.DefaultObserver
+import com.lfy.libretrofit.observer.FileUploadObserver
+import com.lfy.libretrofit.request.UploadFileRequestBody
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        RetrofitHelper.createApiService(ApiService::class.java,"https://api.github.com")
+       HttpApi.getApiService()
             .githubApi
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -22,5 +27,27 @@ class MainActivity : AppCompatActivity() {
                 }
 
             })
+
+        upload(File(""),object: FileUploadObserver<ResponseBody>(this){
+            override fun onUpLoadSuccess(t: ResponseBody?) {
+            }
+
+            override fun onUpLoadFail(e: Throwable?) {
+            }
+
+            override fun onProgress(progress: Int) {
+            }
+        })
+    }
+
+
+    fun upload(file: File, fileUploadObserver: FileUploadObserver<ResponseBody>){
+        val uploadRequestBody = UploadFileRequestBody(file,fileUploadObserver);
+        val part = MultipartBody.Part.createFormData("file",file.name,uploadRequestBody)
+        HttpApi.getApiService()
+            .upload(part)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(fileUploadObserver)
     }
 }

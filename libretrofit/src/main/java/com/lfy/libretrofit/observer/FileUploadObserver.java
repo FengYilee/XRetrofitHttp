@@ -12,6 +12,11 @@ public abstract class FileUploadObserver<T> extends DefaultObserver<T> {
     }
 
     @Override
+    public void onSuccess(T t) {
+
+    }
+
+    @Override
     public void onNext(T response) {
         onUpLoadSuccess(response);
     }

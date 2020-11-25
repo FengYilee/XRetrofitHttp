@@ -17,7 +17,7 @@ import okio.Sink;
 /**
  * Created by FengYi.Lee<fengyi.li@hotmail.com> on 2020/11/24.
  */
-class UploadFileRequestBody extends RequestBody {
+public class UploadFileRequestBody extends RequestBody {
 
     private RequestBody mRequestBody;
     private FileUploadObserver<ResponseBody> fileUploadObserver;

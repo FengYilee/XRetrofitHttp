@@ -65,7 +65,7 @@ class RetrofitManager {
                 Log.d("OkHttp",message);
             }
         });
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        loggingInterceptor.setLevel(provider.configLogLevel());
         builder.addInterceptor(loggingInterceptor);
 
         if (provider.configInterceptors() != null){
