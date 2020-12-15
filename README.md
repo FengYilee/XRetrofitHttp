@@ -1,6 +1,6 @@
 # XRetrofitHttp
 
-Add it in your root build.gradle at the end of repositories:
+使用手册:
 
 allprojects {
 		repositories {
@@ -13,4 +13,11 @@ Step 2. Add the dependency
 
 dependencies {
 	        implementation 'com.github.FengYilee:XRetrofitHttp:1.0.0'
+}
+
+
+Step 3. Add the databinding
+
+dataBinding {
+        enabled true
 }
