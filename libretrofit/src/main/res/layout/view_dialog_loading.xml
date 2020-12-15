@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_loading_dialog_bg">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/indicatorView"
+            style="@style/AVLoadingIndicatorView.Large"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:indicatorColor="#37B2FC"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            app:layout_constraintBottom_toTopOf="@+id/tv_tips"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:text="加载中..."
+            android:textColor="#909090"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/indicatorView"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_goneMarginTop="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

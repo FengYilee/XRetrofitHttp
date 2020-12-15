@@ -11,7 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  */
 class HttpApi {
 
-    private static final String BASE_URL = "http://localhost:8080";
+    private static final String BASE_URL = "https://api.github.com";
 
     public static ApiService apiService = null;
     public static NetProvider netProvider = null;

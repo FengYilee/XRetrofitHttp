@@ -41,7 +41,7 @@ class RetrofitManager {
     }
 
     public Retrofit getRetrofit(String baseUrl,NetProvider netProvider){
-        return this.getRetrofit(baseUrl,netProvider);
+        return this.getRetrofit(baseUrl,this.getOkHttpClient(netProvider));
     }
 
     public Retrofit getRetrofit(String baseUrl, OkHttpClient okHttpClient){

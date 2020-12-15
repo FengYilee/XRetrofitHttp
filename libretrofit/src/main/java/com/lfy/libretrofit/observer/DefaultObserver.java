@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+import com.lfy.libretrofit.dialog.LoadingDialogHelper;
 import com.lfy.libretrofit.exception.ServerResponseException;
 
 import org.json.JSONException;
@@ -14,23 +15,26 @@ import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.ResourceObserver;
 
 /**
  * Created by FengYi.Lee<fengyi.li@hotmail.com> on 2020/11/24.
  */
-public abstract class DefaultObserver<T> implements Observer<T> {
+public abstract class DefaultObserver<T> extends ResourceObserver<T> {
 
     protected Context mContext;
+    protected boolean isShowDialog = true;
+    private String dialogText = "请稍候...";
 
     public DefaultObserver(Context context){
         this.mContext = context;
     }
 
-    @Override
-    public void onSubscribe(Disposable d) {
+    public DefaultObserver(Context context,String dialogText){
+        this.mContext = context;
+        this.dialogText = dialogText;
     }
+
 
     @Override
     public void onNext(T response) {
@@ -40,6 +44,8 @@ public abstract class DefaultObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        if (isShowDialog)
+            LoadingDialogHelper.getInstance().cancelDialog();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(ExceptionReason.BAD_NETWORK);
         } else if (e instanceof ConnectException
@@ -57,11 +63,20 @@ public abstract class DefaultObserver<T> implements Observer<T> {
         } else {
             onException(ExceptionReason.UNKNOWN_ERROR);
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (isShowDialog)
+            LoadingDialogHelper.getInstance().showDialog(dialogText);
     }
 
     @Override
     public void onComplete() {
-
+        if (isShowDialog)
+            LoadingDialogHelper.getInstance().cancelDialog();
     }
 
     public abstract void onSuccess(T t);

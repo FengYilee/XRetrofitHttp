@@ -11,6 +11,11 @@ public abstract class FileUploadObserver<T> extends DefaultObserver<T> {
         super(context);
     }
 
+    public FileUploadObserver(Context context,boolean isShowDialog){
+        super(context);
+        this.isShowDialog = isShowDialog;
+    }
+
     @Override
     public void onSuccess(T t) {
 
@@ -23,6 +28,7 @@ public abstract class FileUploadObserver<T> extends DefaultObserver<T> {
 
     @Override
     public void onError(Throwable e) {
+        super.onError(e);
         onUpLoadFail(e);
     }
 
