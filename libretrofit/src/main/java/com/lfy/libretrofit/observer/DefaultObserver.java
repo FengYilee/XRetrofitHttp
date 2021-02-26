@@ -35,6 +35,16 @@ public abstract class DefaultObserver<T> extends ResourceObserver<T> {
         this.dialogText = dialogText;
     }
 
+    /**
+     * 是否打开加载框
+     * @param context
+     * @param isShowDialog
+     */
+    public DefaultObserver(Context context,boolean isShowDialog){
+        this.mContext = context;
+        this.isShowDialog = isShowDialog;
+    }
+
 
     @Override
     public void onNext(T response) {
@@ -114,7 +124,7 @@ public abstract class DefaultObserver<T> extends ResourceObserver<T> {
                 break;
             case UNKNOWN_ERROR:
             default:
-                Toast.makeText(mContext,"未知网络错误。",Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,"未知错误,请查看错误日志.",Toast.LENGTH_LONG).show();
                 break;
         }
     }

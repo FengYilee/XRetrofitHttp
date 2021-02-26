@@ -37,20 +37,27 @@ class RetrofitManager {
     }
 
     public Retrofit getRetrofit(String baseUrl){
-        return this.getRetrofit(baseUrl,getOkHttpClient(new NetProvider()));
+        return this.getRetrofit(baseUrl,getOkHttpClient(new NetProvider()),false);
     }
 
     public Retrofit getRetrofit(String baseUrl,NetProvider netProvider){
-        return this.getRetrofit(baseUrl,this.getOkHttpClient(netProvider));
+        return this.getRetrofit(baseUrl,this.getOkHttpClient(netProvider),false);
     }
 
-    public Retrofit getRetrofit(String baseUrl, OkHttpClient okHttpClient){
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
-        return new Retrofit.Builder().baseUrl(baseUrl)
+    public Retrofit getRetrofit(String baseUrl,NetProvider netProvider,boolean closeJson){
+        return this.getRetrofit(baseUrl,this.getOkHttpClient(netProvider),closeJson);
+    }
+
+    public Retrofit getRetrofit(String baseUrl, OkHttpClient okHttpClient,boolean closeJson){
+        Retrofit.Builder builder = new Retrofit.Builder();
+        builder.baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+        if (!closeJson){
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
+            builder.addConverterFactory(GsonConverterFactory.create(gson));
+        }
+        return builder.build();
     }
 
     public OkHttpClient getOkHttpClient(final NetProvider provider){

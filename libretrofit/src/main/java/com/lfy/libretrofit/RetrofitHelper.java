@@ -13,4 +13,8 @@ public class RetrofitHelper<T> {
         return RetrofitManager.getInstance().getRetrofit(baseUrl, netProvider).create(clazz);
     }
 
+    public static <T>T createApiService(Class<T> clazz,String baseUrl,NetProvider netProvider,boolean closeJson){
+        return RetrofitManager.getInstance().getRetrofit(baseUrl, netProvider,closeJson).create(clazz);
+    }
+
 }
