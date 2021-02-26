@@ -4,7 +4,9 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -21,5 +23,8 @@ interface ApiService {
     @Multipart
     @POST("/upload")
     Observable<ResponseBody> upload(@Part MultipartBody.Part part);
+
+    @POST("/RegExam/switchPage?resourceId=reg")
+    Observable<String> qiangZw(@Body RequestBody body);
 
 }

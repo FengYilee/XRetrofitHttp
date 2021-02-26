@@ -15,12 +15,13 @@ import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.ResourceObserver;
 
 /**
  * Created by FengYi.Lee<fengyi.li@hotmail.com> on 2020/11/24.
  */
-public abstract class DefaultObserver<T> extends ResourceObserver<T> {
+public abstract class DefaultObserver<T> extends DisposableObserver<T> {
 
     protected Context mContext;
     protected boolean isShowDialog = true;

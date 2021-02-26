@@ -17,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by FengYi.Lee<fengyi.li@hotmail.com> on 2020/11/24.
@@ -56,6 +57,8 @@ class RetrofitManager {
         if (!closeJson){
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
             builder.addConverterFactory(GsonConverterFactory.create(gson));
+        } else {
+            builder.addConverterFactory(ScalarsConverterFactory.create());
         }
         return builder.build();
     }
