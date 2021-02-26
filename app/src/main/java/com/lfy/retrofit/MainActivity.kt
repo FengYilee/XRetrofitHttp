@@ -21,6 +21,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import java.io.File
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,27 +56,29 @@ class MainActivity : AppCompatActivity() {
         val body = RequestBody.create(MediaType.parse(FORM_CONTENT_TYPE), sb.toString());
 
         findViewById<Button>(R.id.button).setOnClickListener {
-            for (index in 1..100000){
-                Thread.sleep(1000)
+            HttpApi.getApiService().qiangZw(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .flatMap {
+                    if (it.indexOf("容量不足") == -1){
+//                        return@flatMap Observable.()
+                    }
+                    return@flatMap Observable.just(it)
+                }
+                .repeat(1000)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : DefaultObserver<String>(this,false){
+                    override fun onSuccess(t: String?) {
+                        tvResponseContent.text = t
+                    }
 
-                mDisposable!!.add(
-                    HttpApi.getApiService().qiangZw(body)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(object : DefaultObserver<String>(this,false) {
-                            override fun onSuccess(t: String?) {
-                                println(t)
-                            }
+                    override fun onComplete() {
+                        super.onComplete()
 
-                            override fun onError(e: Throwable) {
-                                super.onError(e)
-                                println(e)
-                            }
-                        })
+                    }
 
-                )
-
-            }
+                })
 
 
 
