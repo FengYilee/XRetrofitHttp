@@ -38,8 +38,7 @@ public abstract class DefaultObserver<T> extends DisposableObserver<T> {
 
     /**
      * 是否打开加载框
-     * @param context
-     * @param isShowDialog
+     * @param isShowDialog  默认true
      */
     public DefaultObserver(Context context,boolean isShowDialog){
         this.mContext = context;

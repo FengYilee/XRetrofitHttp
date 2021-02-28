@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RetrofitUtils</string>
+    <string name="rq_json">例如：[{"zy_bm": "W120102","kc_bm": "02134"}]</string>
 </resources>

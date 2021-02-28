@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private val FORM_CONTENT_TYPE = "Content-Type:application/x-www-form-urlencoded; charset=utf-8"
     private val FORM_CONTENT_JSON_TYPE = "Content-Type:application/json; charset=utf-8"
-    val json = "[{\"zy_bm\": \"W120102\",\"kc_bm\": \"02134\"},{\"zy_bm\": \"W120102\",\"kc_bm\": \"02139\"},{\"zy_bm\": \"W120102\",\"kc_bm\": \"02136\"},{\"zy_bm\": \"W120102\",\"kc_bm\": \"02129\"}]"
+    val json = ""
     var mDisposable : CompositeDisposable ?= null
     val sdf = SimpleDateFormat("yy/MM/dd HH:mm:ss")
 
