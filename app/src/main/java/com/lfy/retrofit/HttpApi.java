@@ -17,7 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 class HttpApi {
 
     private static final String BASE_URL = "https://zk.sceea.cn";
-    public static String COOKIE_VALUE = "JSESSIONID=893259DE17ED5B4B2E78CE1A6B2F7630; COOKIE_SUPPORT=true; GUEST_LANGUAGE_ID=zh_CN; X-LB=2.12.13.5cdcdb23.1f90; JSESSIONID=AA620B061077A2C4569E6EAE53D817DF; allan=65Z52P5722M7P52M726P5ZP5P527M7B3B39P56M7P5M7P55";
+    public static String COOKIE_VALUE = "";
 
 
     public static ApiService apiService = null;

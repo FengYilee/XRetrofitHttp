@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         val etZkzh = findViewById<EditText>(R.id.et_zkzh)
         val etAreaCode =findViewById<EditText>(R.id.et_area_code)
         val etAreaName =findViewById<EditText>(R.id.et_area_name)
+        val etCookie =findViewById<EditText>(R.id.et_cookie)
+        val etJson =findViewById<EditText>(R.id.et_json)
 
 
         btnLogin.setOnClickListener {
@@ -107,8 +109,6 @@ class MainActivity : AppCompatActivity() {
 
         val paramMap = HashMap<String,String>()
 
-        paramMap.put("courseJson", json)
-
         val sb = StringBuffer()
         //设置表单参数
         //设置表单参数
@@ -119,6 +119,16 @@ class MainActivity : AppCompatActivity() {
         val body = RequestBody.create(MediaType.parse(FORM_CONTENT_TYPE), sb.toString());
 
         findViewById<Button>(R.id.button).setOnClickListener {
+
+            if (TextUtils.isEmpty(etCookie.text)){
+                Toast.makeText(this,"Cookie不可为空",Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            if (TextUtils.isEmpty(etJson.text)){
+                Toast.makeText(this,"json文本不可为空",Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
 
             if (TextUtils.isEmpty(etSfzh.text.toString())){
                 Toast.makeText(this,"身份证号不能为空",Toast.LENGTH_LONG).show()
@@ -144,7 +154,8 @@ class MainActivity : AppCompatActivity() {
             paramMap.put("mainIds",  etAreaCode.text.toString())
             paramMap.put("qxname",  etAreaName.text.toString())
             paramMap.put("xx_bm",  etAreaCode.text.toString())
-
+            paramMap.put("courseJson", etJson.text.toString())
+            HttpApi.COOKIE_VALUE = etCookie.text.toString()
 
             HttpApi.getApiService().qiangZw(body)
                 .subscribeOn(Schedulers.io())
